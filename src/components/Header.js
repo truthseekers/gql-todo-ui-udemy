@@ -7,8 +7,8 @@ function Header() {
     <div>
       <AppBar position="sticky">
         <Toolbar>
-          <MenuItem onClick={() => history.push("/")}>Home</MenuItem>
-          <MenuItem onClick={() => history.push("/login")}>Login</MenuItem>
+          <MenuItem onClick={() => history.pushState("/")}>Home</MenuItem>
+          <MenuItem onClick={() => history.pushState("/login")}>Login</MenuItem>
         </Toolbar>
       </AppBar>
     </div>
