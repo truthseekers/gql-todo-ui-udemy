@@ -13,3 +13,5 @@ Linux, Docker & Kubernetes, React.js, GraphQL, SQL, Mongo, Emacs & more. Literal
 simple-routing-done
 
 simple-routing-and-setup-two-done (and -start)
+
+first-query && first-query-done
