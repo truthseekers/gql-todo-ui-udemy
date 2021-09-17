@@ -15,3 +15,5 @@ simple-routing-done
 simple-routing-and-setup-two-done (and -start)
 
 first-query && first-query-done
+
+todos-query-done (and -start)

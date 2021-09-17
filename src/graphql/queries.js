@@ -9,4 +9,17 @@ const GET_USERS_QUERY = gql`
   }
 `;
 
-export { GET_USERS_QUERY };
+const TODOS_QUERY = gql`
+  query {
+    todos {
+      todoItems {
+        id
+        name
+        isComplete
+      }
+      count
+    }
+  }
+`;
+
+export { GET_USERS_QUERY, TODOS_QUERY };
