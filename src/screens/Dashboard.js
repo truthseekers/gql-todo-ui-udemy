@@ -18,6 +18,15 @@ function Dashboard() {
     refetchQueries: [
       {
         query: TODOS_QUERY,
+        variables: {
+          takeStatus: "incomplete",
+        },
+      },
+      {
+        query: TODOS_QUERY,
+        variables: {
+          takeStatus: "complete",
+        },
       },
     ],
   });
@@ -32,6 +41,7 @@ function Dashboard() {
         isComplete: false,
       },
     });
+    setTodoText("");
   };
 
   return (
