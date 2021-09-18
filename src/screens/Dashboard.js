@@ -12,7 +12,7 @@ function Dashboard() {
     event.preventDefault();
     createTodo({
       variables: {
-        newtodo: todoText,
+        newTodo: todoText,
         userId: "1",
         isComplete: false,
       },
