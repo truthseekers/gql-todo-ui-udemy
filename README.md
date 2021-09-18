@@ -19,3 +19,9 @@ first-query && first-query-done
 todos-query-done (and -start)
 
 display-todos-done (and -start)
+
+create-todo-done (and -start)
+
+refetch-queries-done (and -start)
+
+filter-by-complete-done (and -start)

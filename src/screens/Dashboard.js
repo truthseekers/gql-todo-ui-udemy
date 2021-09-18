@@ -1,11 +1,19 @@
 import React, { useState } from "react";
 import { useMutation } from "@apollo/client";
-import { Container, Box, Button, TextField } from "@material-ui/core";
+import {
+  Container,
+  Box,
+  Button,
+  TextField,
+  Radio,
+  FormControlLabel,
+} from "@material-ui/core";
 import Todos from "../components/Todos";
 import { NEW_TODO } from "../graphql/mutations";
 import { TODOS_QUERY } from "../graphql/queries";
 
 function Dashboard() {
+  const [takeStatus, setTakeStatus] = useState("incomplete");
   const [createTodo, { error }] = useMutation(NEW_TODO, {
     refetchQueries: [
       {
@@ -37,12 +45,34 @@ function Dashboard() {
           variant="outlined"
           margin="normal"
         />
+        <FormControlLabel
+          control={
+            <Radio
+              checked={takeStatus === "complete"}
+              onChange={() => setTakeStatus("complete")}
+              color="primary"
+              name="complete"
+            />
+          }
+          label="complete"
+        />
+        <FormControlLabel
+          control={
+            <Radio
+              checked={takeStatus === "incomplete"}
+              onChange={() => setTakeStatus("incomplete")}
+              color="primary"
+              name="incomplete"
+            />
+          }
+          label="Incomplete"
+        />
         <Button fullWidth type="submit" variant="contained" color="primary">
           Add todo
         </Button>
       </form>
       <Box align="center">
-        <Todos />
+        <Todos takeStatus={takeStatus} />
       </Box>
     </Container>
   );

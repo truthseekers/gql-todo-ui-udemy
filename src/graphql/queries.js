@@ -10,8 +10,8 @@ const GET_USERS_QUERY = gql`
 `;
 
 const TODOS_QUERY = gql`
-  query {
-    todos {
+  query todos($takeStatus: String) {
+    todos(takeStatus: $takeStatus) {
       todoItems {
         id
         name
