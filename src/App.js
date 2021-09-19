@@ -7,7 +7,7 @@ import UnauthenticatedApp from "./screens/UnauthenticatedApp";
 
 function App() {
   // const { currentuser } = useAuth();
-  const currentUser = false;
+  const currentUser = true;
 
   return (
     <div>

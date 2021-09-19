@@ -15,20 +15,40 @@ import { TODOS_QUERY } from "../graphql/queries";
 function Dashboard() {
   const [takeStatus, setTakeStatus] = useState("incomplete");
   const [createTodo, { error }] = useMutation(NEW_TODO, {
-    refetchQueries: [
-      {
+    update(cache, { data: { createTodo } }) {
+      console.log("createTodo: ", createTodo);
+
+      const { todos } = cache.readQuery({
         query: TODOS_QUERY,
-        variables: {
-          takeStatus: "incomplete",
-        },
-      },
-      {
+        variables: { takeStatus: "incomplete" },
+      });
+
+      cache.writeQuery({
         query: TODOS_QUERY,
-        variables: {
-          takeStatus: "complete",
+        variables: { takeStatus: "incomplete" },
+        data: {
+          todos: {
+            todoItems: [createTodo, ...todos.todoItems],
+            count: [createTodo, ...todos.todoItems].length,
+          },
         },
-      },
-    ],
+      });
+    },
+
+    // refetchQueries: [
+    //   {
+    //     query: TODOS_QUERY,
+    //     variables: {
+    //       takeStatus: "incomplete",
+    //     },
+    //   },
+    //   {
+    //     query: TODOS_QUERY,
+    //     variables: {
+    //       takeStatus: "complete",
+    //     },
+    //   },
+    // ],
   });
   const [todoText, setTodoText] = useState("");
 
