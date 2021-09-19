@@ -11,4 +11,14 @@ const NEW_TODO = gql`
   }
 `;
 
-export { NEW_TODO };
+const SIGNUP_MUTATION = gql`
+  mutation signup($firstName: String!, $email: String!, $password: String!) {
+    signup(firstName: $firstName, email: $email, password: $password) {
+      id
+      firstName
+      email
+    }
+  }
+`;
+
+export { NEW_TODO, SIGNUP_MUTATION };
