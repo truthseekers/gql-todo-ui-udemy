@@ -34,4 +34,6 @@ display-and-add-users-done (and -start)
 
 cache-update-done (and -start)
 
+** Sorry, confusing naming for branches. anything with the word "cache" in it should help you understand how the cache works. **
+
 delete-todo-with-cache-done (and -start) = Delete a todo and have it update in the cache
