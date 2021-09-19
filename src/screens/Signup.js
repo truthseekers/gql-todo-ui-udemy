@@ -9,7 +9,22 @@ function Signup() {
   const [password, setPassword] = useState("");
   const [firstName, setFirstName] = useState("");
   const { data, loading, error } = useQuery(GET_USERS_QUERY);
-  const [doSignup] = useMutation(SIGNUP_MUTATION);
+  const [doSignup] = useMutation(SIGNUP_MUTATION, {
+    update(cache, { data: { signup } }) {
+      console.log("test: ", signup);
+      console.log("cache: ", cache);
+      const { users } = cache.readQuery({
+        query: GET_USERS_QUERY,
+      });
+
+      cache.writeQuery({
+        query: GET_USERS_QUERY,
+        data: {
+          users: [...users, signup],
+        },
+      });
+    },
+  });
 
   const handleSubmit = (e) => {
     e.preventDefault();
