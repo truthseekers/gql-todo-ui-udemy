@@ -25,3 +25,5 @@ create-todo-done (and -start)
 refetch-queries-done (and -start)
 
 filter-by-complete-done (and -start)
+
+auth-routing-setup-done (and -start)
