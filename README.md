@@ -33,3 +33,5 @@ auth-routing-setup-done (and -start)
 display-and-add-users-done (and -start)
 
 cache-update-done (and -start)
+
+delete-todo-with-cache-done (and -start) = Delete a todo and have it update in the cache
