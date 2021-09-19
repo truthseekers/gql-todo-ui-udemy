@@ -26,4 +26,6 @@ refetch-queries-done (and -start)
 
 filter-by-complete-done (and -start)
 
+refetch-with-params-done (and -start)
+
 auth-routing-setup-done (and -start)
