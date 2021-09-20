@@ -31,4 +31,14 @@ const DELETE_TODO_ITEM = gql`
   }
 `;
 
-export { NEW_TODO, SIGNUP_MUTATION, DELETE_TODO_ITEM };
+const UPDATE_TODO_ITEM = gql`
+  mutation updateTodo($todo: ID!, $isComplete: Boolean!, $name: String!) {
+    updateTodo(todoId: $todo, isComplete: $isComplete, name: $name) {
+      id
+      isComplete
+      name
+    }
+  }
+`;
+
+export { NEW_TODO, SIGNUP_MUTATION, DELETE_TODO_ITEM, UPDATE_TODO_ITEM };
