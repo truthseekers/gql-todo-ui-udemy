@@ -9,6 +9,7 @@ function Todos(props) {
     variables: {
       takeStatus: props.takeStatus,
     },
+    fetchPolicy: "network-only",
   });
 
   if (loading) {

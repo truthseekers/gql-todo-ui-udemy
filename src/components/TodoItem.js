@@ -44,6 +44,16 @@ function TodoItem(props) {
     },
   });
 
+  const handleChange = () => {
+    updateTodo({
+      variables: {
+        todo: props.id,
+        isComplete: !props.completed,
+        name: props.task,
+      },
+    });
+  };
+
   const updateTodoItem = () => {
     updateTodo({
       variables: {
@@ -65,6 +75,11 @@ function TodoItem(props) {
     <>
       {!isEditing ? (
         <li key={props.id}>
+          <input
+            type="checkbox"
+            onChange={handleChange}
+            checked={props.completed}
+          />
           <span onClick={() => setIsEditing(true)}>{props.task}</span>
           <span>
             - <DeleteIcon onClick={deleteTodoItem} />
