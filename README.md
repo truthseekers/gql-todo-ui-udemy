@@ -39,3 +39,5 @@ cache-update-done (and -start)
 delete-todo-with-cache-done (and -start) = Delete a todo and have it update in the cache
 
 update-todo-in-ui-done (and -start)
+
+mark-todo-as-complete-done (and -start)
