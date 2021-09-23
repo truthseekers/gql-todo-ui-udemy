@@ -31,6 +31,16 @@ const DELETE_TODO_ITEM = gql`
   }
 `;
 
+const LOGIN_MUTATION = gql`
+  mutation loginMutation($email: String!, $password: String!) {
+    login(email: $email, password: $password) {
+      id
+      firstName
+      email
+    }
+  }
+`;
+
 const UPDATE_TODO_ITEM = gql`
   mutation updateTodo($todo: ID!, $isComplete: Boolean!, $name: String!) {
     updateTodo(todoId: $todo, isComplete: $isComplete, name: $name) {
@@ -41,4 +51,10 @@ const UPDATE_TODO_ITEM = gql`
   }
 `;
 
-export { NEW_TODO, SIGNUP_MUTATION, DELETE_TODO_ITEM, UPDATE_TODO_ITEM };
+export {
+  NEW_TODO,
+  SIGNUP_MUTATION,
+  DELETE_TODO_ITEM,
+  UPDATE_TODO_ITEM,
+  LOGIN_MUTATION,
+};

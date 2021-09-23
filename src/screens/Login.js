@@ -9,15 +9,17 @@ import {
 import LockOutlinedIcon from "@material-ui/icons/LockOutlined";
 import { useLoginStyles } from "../styles/loginStyles";
 import { Link } from "react-router-dom";
+import { useLoginMutation } from "../utils/hooks";
 
 export default function Login() {
+  const { doLogin, error } = useLoginMutation();
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const classes = useLoginStyles();
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    //doLogin()
+    doLogin({ variables: { email, password } });
   };
 
   return (
