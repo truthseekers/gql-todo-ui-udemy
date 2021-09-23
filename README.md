@@ -43,3 +43,5 @@ update-todo-in-ui-done (and -start)
 mark-todo-as-complete-done (and -start)
 
 pagination-done (and -start)
+
+login-page-done (and -start)
