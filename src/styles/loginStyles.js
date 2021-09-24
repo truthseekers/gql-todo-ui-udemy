@@ -20,4 +20,11 @@ const useLoginStyles = makeStyles((theme) => ({
   },
 }));
 
-export { useLoginStyles };
+const useHeaderStyles = makeStyles((theme) => ({
+  link: {
+    color: "white",
+    textDecoration: "none",
+  },
+}));
+
+export { useLoginStyles, useHeaderStyles };

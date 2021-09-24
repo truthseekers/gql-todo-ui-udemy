@@ -51,10 +51,17 @@ const UPDATE_TODO_ITEM = gql`
   }
 `;
 
+const LOGOUT_MUTATION = gql`
+  mutation {
+    logout
+  }
+`;
+
 export {
   NEW_TODO,
   SIGNUP_MUTATION,
   DELETE_TODO_ITEM,
   UPDATE_TODO_ITEM,
   LOGIN_MUTATION,
+  LOGOUT_MUTATION,
 };
