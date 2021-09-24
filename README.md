@@ -45,3 +45,7 @@ mark-todo-as-complete-done (and -start)
 pagination-done (and -start)
 
 login-page-done (and -start)
+
+login-mutation-done (and -start)
+
+get-current-user-done (and -start)
