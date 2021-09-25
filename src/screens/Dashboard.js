@@ -11,6 +11,7 @@ import {
 import Todos from "../components/Todos";
 import { NEW_TODO } from "../graphql/mutations";
 import { TODOS_QUERY } from "../graphql/queries";
+import { Alert } from "@material-ui/lab";
 
 function Dashboard() {
   const [takeStatus, setTakeStatus] = useState("incomplete");
@@ -34,6 +35,7 @@ function Dashboard() {
       //   },
       // });
     },
+    onError() {},
 
     // refetchQueries: [
     //   {
@@ -104,6 +106,7 @@ function Dashboard() {
       <Box align="center">
         <Todos takeStatus={takeStatus} />
       </Box>
+      {error && <Alert severity="error">{error?.message}</Alert>}
     </Container>
   );
 }
