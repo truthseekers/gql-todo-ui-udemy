@@ -10,13 +10,14 @@ import LockOutlinedIcon from "@material-ui/icons/LockOutlined";
 import { useLoginStyles } from "../styles/loginStyles";
 import { Link } from "react-router-dom";
 import { useLoginMutation } from "../utils/hooks";
+import { Alert } from "@material-ui/lab";
 
 export default function Login() {
   const { doLogin, error } = useLoginMutation();
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const classes = useLoginStyles();
-
+  console.log("error in Login: ", error);
   const handleSubmit = (e) => {
     e.preventDefault();
     doLogin({ variables: { email, password } });
@@ -67,6 +68,7 @@ export default function Login() {
           </Button>
           <Link to="/signup">{"Don't have an account? Sign up!"}</Link>
         </form>
+        {error && <Alert severity="error">{error}</Alert>}
       </div>
     </Container>
   );

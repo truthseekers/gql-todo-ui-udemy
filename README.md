@@ -53,3 +53,5 @@ get-current-user-done (and -start)
 logout-done (and -start)
 
 signup-with-auth-done (and -start)
+
+error-handling-frontend-done (and -start)

@@ -5,6 +5,7 @@ import { SIGNUP_MUTATION } from "../graphql/mutations";
 import { useQuery, useMutation } from "@apollo/client";
 import { useHistory } from "react-router-dom";
 import { useButtonStyles } from "../styles/loginStyles";
+import { Alert } from "@material-ui/lab";
 
 function Signup() {
   let history = useHistory();
@@ -14,23 +15,27 @@ function Signup() {
   const { data, loading, error } = useQuery(GET_USERS_QUERY);
   const btnClasses = useButtonStyles();
 
-  const [doSignup, { client }] = useMutation(SIGNUP_MUTATION, {
-    update(cache, { data: { signup } }) {
-      client.resetStore();
-      history.push("/dashboard");
-      window.location.assign(window.location);
-      const { users } = cache.readQuery({
-        query: GET_USERS_QUERY,
-      });
+  const [doSignup, { error: signupError, client }] = useMutation(
+    SIGNUP_MUTATION,
+    {
+      update(cache, { data: { signup } }) {
+        client.resetStore();
+        history.push("/dashboard");
+        window.location.assign(window.location);
+        const { users } = cache.readQuery({
+          query: GET_USERS_QUERY,
+        });
 
-      cache.writeQuery({
-        query: GET_USERS_QUERY,
-        data: {
-          users: [...users, signup],
-        },
-      });
-    },
-  });
+        cache.writeQuery({
+          query: GET_USERS_QUERY,
+          data: {
+            users: [...users, signup],
+          },
+        });
+      },
+      onError() {},
+    }
+  );
 
   const handleSubmit = (e) => {
     e.preventDefault();
@@ -89,6 +94,8 @@ function Signup() {
             New User!
           </Button>
         </form>
+
+        {signupError && <Alert severity="error">{signupError.message}</Alert>}
       </div>
     </Container>
   );
