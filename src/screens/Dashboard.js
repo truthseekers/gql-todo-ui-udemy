@@ -18,21 +18,21 @@ function Dashboard() {
     update(cache, { data: { createTodo } }) {
       console.log("createTodo: ", createTodo);
 
-      const { todos } = cache.readQuery({
-        query: TODOS_QUERY,
-        variables: { takeStatus: "incomplete" },
-      });
+      // const { todos } = cache.readQuery({
+      //   query: TODOS_QUERY,
+      //   variables: { takeStatus: "incomplete" },
+      // });
 
-      cache.writeQuery({
-        query: TODOS_QUERY,
-        variables: { takeStatus: "incomplete" },
-        data: {
-          todos: {
-            todoItems: [createTodo, ...todos.todoItems],
-            count: [createTodo, ...todos.todoItems].length,
-          },
-        },
-      });
+      // cache.writeQuery({
+      //   query: TODOS_QUERY,
+      //   variables: { takeStatus: "incomplete" },
+      //   data: {
+      //     todos: {
+      //       todoItems: [createTodo, ...todos.todoItems],
+      //       count: [createTodo, ...todos.todoItems].length,
+      //     },
+      //   },
+      // });
     },
 
     // refetchQueries: [

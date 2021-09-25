@@ -14,33 +14,33 @@ function TodoItem(props) {
   const [deleteTodo] = useMutation(DELETE_TODO_ITEM, {
     update(cache, { data: { deleteTodo } }) {
       console.log("deletetodo: ", deleteTodo);
-      const { todos } = cache.readQuery({
-        query: TODOS_QUERY,
-        variables: {
-          takeStatus: deleteTodo.isComplete ? "complete" : "incomplete",
-        },
-      });
-      console.log("todos from todoItem delete: ", todos);
+      // const { todos } = cache.readQuery({
+      //   query: TODOS_QUERY,
+      //   variables: {
+      //     takeStatus: deleteTodo.isComplete ? "complete" : "incomplete",
+      //   },
+      // });
+      // console.log("todos from todoItem delete: ", todos);
 
-      let updatedListTodos = todos.todoItems.filter((elem) => {
-        if (elem.id !== deleteTodo.id) {
-          return elem;
-        }
-      });
-      console.log("updatedList: ", updatedListTodos);
+      // let updatedListTodos = todos.todoItems.filter((elem) => {
+      //   if (elem.id !== deleteTodo.id) {
+      //     return elem;
+      //   }
+      // });
+      // console.log("updatedList: ", updatedListTodos);
 
-      cache.writeQuery({
-        query: TODOS_QUERY,
-        variables: {
-          takeStatus: deleteTodo.isComplete ? "complete" : "incomplete",
-        },
-        data: {
-          todos: {
-            todoItems: updatedListTodos,
-            count: updatedListTodos.length,
-          },
-        },
-      });
+      // cache.writeQuery({
+      //   query: TODOS_QUERY,
+      //   variables: {
+      //     takeStatus: deleteTodo.isComplete ? "complete" : "incomplete",
+      //   },
+      //   data: {
+      //     todos: {
+      //       todoItems: updatedListTodos,
+      //       count: updatedListTodos.length,
+      //     },
+      //   },
+      // });
     },
   });
 
