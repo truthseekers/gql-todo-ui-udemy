@@ -51,3 +51,5 @@ login-mutation-done (and -start)
 get-current-user-done (and -start)
 
 logout-done (and -start)
+
+signup-with-auth-done (and -start)
