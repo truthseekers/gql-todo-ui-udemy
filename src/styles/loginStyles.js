@@ -27,4 +27,10 @@ const useHeaderStyles = makeStyles((theme) => ({
   },
 }));
 
-export { useLoginStyles, useHeaderStyles };
+const useButtonStyles = makeStyles((theme) => ({
+  root: {
+    marginTop: "25px",
+  },
+}));
+
+export { useLoginStyles, useHeaderStyles, useButtonStyles };
