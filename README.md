@@ -59,3 +59,5 @@ error-handling-frontend-done (and -start)
 only-users-todos-done (and -start) Cache bug fix here
 
 todos-not-blank-done (and -start)
+
+filter-todos-done (and -start) (search)

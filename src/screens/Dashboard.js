@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import { useMutation } from "@apollo/client";
 import {
+  Checkbox,
   Container,
   Box,
   Button,
@@ -15,6 +16,7 @@ import { Alert } from "@material-ui/lab";
 
 function Dashboard() {
   const [takeStatus, setTakeStatus] = useState("incomplete");
+  const [isSearch, setIsSearch] = useState(false);
   const [createTodo, { error }] = useMutation(NEW_TODO, {
     update(cache, { data: { createTodo } }) {
       console.log("createTodo: ", createTodo);
@@ -71,11 +73,22 @@ function Dashboard() {
       <form onSubmit={handleSubmit}>
         <TextField
           fullWidth
-          label="Add a todo"
+          label={isSearch ? "Search Todos" : "Add a todo"}
           value={todoText}
           onChange={(e) => setTodoText(e.target.value)}
           variant="outlined"
           margin="normal"
+        />
+        <FormControlLabel
+          control={
+            <Checkbox
+              checked={isSearch}
+              onChange={() => setIsSearch(!isSearch)}
+              color="primary"
+              name="searchTodos"
+            />
+          }
+          label="Search Todos"
         />
         <FormControlLabel
           control={
@@ -99,12 +112,14 @@ function Dashboard() {
           }
           label="Incomplete"
         />
-        <Button fullWidth type="submit" variant="contained" color="primary">
-          Add todo
-        </Button>
+        {!isSearch && (
+          <Button fullWidth type="submit" variant="contained" color="primary">
+            Add todo
+          </Button>
+        )}
       </form>
       <Box align="center">
-        <Todos takeStatus={takeStatus} />
+        <Todos takeStatus={takeStatus} dashInput={isSearch ? todoText : ""} />
       </Box>
       {error && <Alert severity="error">{error?.message}</Alert>}
     </Container>

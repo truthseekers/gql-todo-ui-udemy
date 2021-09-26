@@ -10,6 +10,7 @@ function Todos(props) {
   const [skip, setSkip] = React.useState(0);
   const { data, loading, error } = useQuery(TODOS_QUERY, {
     variables: {
+      filter: props.dashInput,
       takeStatus: props.takeStatus,
       skip: skip,
       take: 5,
