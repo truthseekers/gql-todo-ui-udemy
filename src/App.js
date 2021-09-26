@@ -6,11 +6,15 @@ import Signup from "./screens/Signup";
 import UnauthenticatedApp from "./screens/UnauthenticatedApp";
 import Login from "./screens/Login";
 import { useCurrentUser } from "./utils/hooks";
+import { useAuth } from "./context/AuthContext";
 
 function App() {
   // const { currentuser } = useAuth();
   // const currentUser = false;
   const { currentUser } = useCurrentUser();
+  const test = useAuth();
+
+  console.log("test: ", test);
 
   console.log("currentUser: ", currentUser);
 
