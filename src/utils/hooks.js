@@ -29,9 +29,10 @@ function useCurrentUser() {
   if (meQuery.data?.me) {
     return {
       currentUser: meQuery.data.me,
+      status: "complete",
     };
   } else {
-    return { currentUser: "" };
+    return { currentUser: "", status: "complete" };
   }
 }
 

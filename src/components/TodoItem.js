@@ -88,7 +88,7 @@ function TodoItem(props) {
       ) : (
         <li>
           <TextField
-            autofocus
+            autoFocus
             id="todo"
             label="Update todo"
             margin="normal"

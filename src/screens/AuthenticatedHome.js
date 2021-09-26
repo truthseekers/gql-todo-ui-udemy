@@ -1,7 +1,7 @@
-import { useCurrentUser } from "../utils/hooks";
+import { useAuth } from "../context/AuthContext";
 
 function AuthenticatedHome() {
-  const { currentUser } = useCurrentUser();
+  const { currentUser } = useAuth();
 
   return (
     <div>

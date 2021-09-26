@@ -1,12 +1,13 @@
 import { AppBar, Toolbar, MenuItem } from "@material-ui/core";
 import { useHistory, Link } from "react-router-dom";
-import { useLogout, useCurrentUser } from "../utils/hooks";
+import { useLogout } from "../utils/hooks";
 import { useHeaderStyles } from "../styles/loginStyles";
+import { useAuth } from "../context/AuthContext";
 
 function Header() {
   let history = useHistory();
   const { doLogout } = useLogout();
-  const { currentUser } = useCurrentUser();
+  const { currentUser } = useAuth();
   const classes = useHeaderStyles();
 
   return (

@@ -13,8 +13,10 @@ import Todos from "../components/Todos";
 import { NEW_TODO } from "../graphql/mutations";
 import { TODOS_QUERY } from "../graphql/queries";
 import { Alert } from "@material-ui/lab";
+import { useAuth } from "../context/AuthContext";
 
 function Dashboard() {
+  const { currentUser } = useAuth();
   const [takeStatus, setTakeStatus] = useState("incomplete");
   const [isSearch, setIsSearch] = useState(false);
   const [createTodo, { error }] = useMutation(NEW_TODO, {
@@ -61,7 +63,7 @@ function Dashboard() {
     createTodo({
       variables: {
         newTodo: todoText,
-        userId: "1",
+        userId: currentUser.id,
         isComplete: false,
       },
     });
