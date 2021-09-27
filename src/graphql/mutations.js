@@ -12,8 +12,18 @@ const NEW_TODO = gql`
 `;
 
 const SIGNUP_MUTATION = gql`
-  mutation signup($firstName: String!, $email: String!, $password: String!) {
-    signup(firstName: $firstName, email: $email, password: $password) {
+  mutation signup(
+    $firstName: String!
+    $email: String!
+    $password: String!
+    $paymentMethod: String!
+  ) {
+    signup(
+      firstName: $firstName
+      email: $email
+      password: $password
+      paymentMethod: $paymentMethod
+    ) {
       id
       firstName
       email
