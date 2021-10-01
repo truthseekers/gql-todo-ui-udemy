@@ -19,8 +19,41 @@ const httpLink = createHttpLink({
 
 const client = new ApolloClient({
   link: httpLink,
-  cache: new InMemoryCache(),
+  cache: new InMemoryCache({
+    typePolicies: {
+      Query: {
+        fields: {
+          filteredTodos: (existing, { keyArgs, readField }) => {
+            const todos = readField("todos");
+            console.log("completeStatus: ", completeStatus());
+            console.log("Todos from filteredTodos client query: ", todos);
+            console.log("filter: ", filter());
+            let myFilteredTodos = todos.todoItems.filter((todo) => {
+              const nameOfTodo = readField("name", todo);
+              const statusOfTodo = readField("isComplete", todo);
+              console.log("name of this todo: ", nameOfTodo);
+
+              if (statusOfTodo !== completeStatus()) {
+                return;
+              }
+
+              return nameOfTodo.toLowerCase().includes(filter().toLowerCase());
+            });
+
+            return {
+              count: myFilteredTodos.length,
+              todoItems: myFilteredTodos.slice(skipCount(), skipCount() + 5),
+            };
+          },
+        },
+      },
+    },
+  }),
 });
+
+export const filter = client.cache.makeVar("");
+export const completeStatus = client.cache.makeVar(false);
+export const skipCount = client.cache.makeVar(0);
 
 ReactDOM.render(
   <React.StrictMode>

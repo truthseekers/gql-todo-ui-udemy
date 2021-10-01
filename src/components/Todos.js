@@ -3,6 +3,7 @@ import { TODOS_QUERY, CLIENT_SIDE_FILTERED_TODOS } from "../graphql/queries";
 import { useQuery } from "@apollo/client";
 import TodoItem from "../components/TodoItem";
 import Pagination from "./Pagination";
+import { skipCount } from "../index";
 
 function Todos(props) {
   //   let todoRows = [];
@@ -22,7 +23,7 @@ function Todos(props) {
     return <div>Loading...</div>;
   }
 
-  const todoRows = data.todos.todoItems.map((todo) => {
+  const todoRows = data.filteredTodos.todoItems.map((todo) => {
     return (
       <TodoItem
         key={todo.id}
@@ -35,14 +36,14 @@ function Todos(props) {
 
   console.log("data: ", data);
 
-  const paginate = (pageNumber) => setSkip((pageNumber - 1) * 5);
+  const paginate = (pageNumber) => skipCount((pageNumber - 1) * 5);
 
   return (
     <div>
       <ul>{todoRows}</ul>
       <Pagination
         todosPerPage={5}
-        totalTodos={data.todos.count}
+        totalTodos={data.filteredTodos.count}
         paginate={paginate}
       />
     </div>

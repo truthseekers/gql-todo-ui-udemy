@@ -11,9 +11,10 @@ import {
 } from "@material-ui/core";
 import Todos from "../components/Todos";
 import { NEW_TODO } from "../graphql/mutations";
-import { TODOS_QUERY } from "../graphql/queries";
+import { TODOS_QUERY, CLIENT_SIDE_FILTERED_TODOS } from "../graphql/queries";
 import { Alert } from "@material-ui/lab";
 import { useAuth } from "../context/AuthContext";
+import { completeStatus, filter } from "../index";
 
 function Dashboard() {
   const { currentUser } = useAuth();
@@ -22,39 +23,21 @@ function Dashboard() {
   const [createTodo, { error }] = useMutation(NEW_TODO, {
     update(cache, { data: { createTodo } }) {
       console.log("createTodo: ", createTodo);
+      const { todos } = cache.readQuery({
+        query: CLIENT_SIDE_FILTERED_TODOS,
+      });
 
-      // const { todos } = cache.readQuery({
-      //   query: TODOS_QUERY,
-      //   variables: { takeStatus: "incomplete" },
-      // });
-
-      // cache.writeQuery({
-      //   query: TODOS_QUERY,
-      //   variables: { takeStatus: "incomplete" },
-      //   data: {
-      //     todos: {
-      //       todoItems: [createTodo, ...todos.todoItems],
-      //       count: [createTodo, ...todos.todoItems].length,
-      //     },
-      //   },
-      // });
+      cache.writeQuery({
+        query: CLIENT_SIDE_FILTERED_TODOS,
+        data: {
+          todos: {
+            todoItems: [createTodo, ...todos.todoItems],
+            count: [createTodo, ...todos.todoItems].length,
+          },
+        },
+      });
     },
     onError() {},
-
-    // refetchQueries: [
-    //   {
-    //     query: TODOS_QUERY,
-    //     variables: {
-    //       takeStatus: "incomplete",
-    //     },
-    //   },
-    //   {
-    //     query: TODOS_QUERY,
-    //     variables: {
-    //       takeStatus: "complete",
-    //     },
-    //   },
-    // ],
   });
   const [todoText, setTodoText] = useState("");
 
@@ -77,7 +60,12 @@ function Dashboard() {
           fullWidth
           label={isSearch ? "Search Todos" : "Add a todo"}
           value={todoText}
-          onChange={(e) => setTodoText(e.target.value)}
+          onChange={(e) => {
+            setTodoText(e.target.value);
+            if (isSearch) {
+              filter(e.target.value);
+            }
+          }}
           variant="outlined"
           margin="normal"
         />
@@ -85,7 +73,11 @@ function Dashboard() {
           control={
             <Checkbox
               checked={isSearch}
-              onChange={() => setIsSearch(!isSearch)}
+              onChange={() => {
+                setIsSearch(!isSearch);
+                filter("");
+                setTodoText("");
+              }}
               color="primary"
               name="searchTodos"
             />
@@ -96,7 +88,10 @@ function Dashboard() {
           control={
             <Radio
               checked={takeStatus === "complete"}
-              onChange={() => setTakeStatus("complete")}
+              onChange={() => {
+                setTakeStatus("complete");
+                completeStatus(true);
+              }}
               color="primary"
               name="complete"
             />
@@ -107,7 +102,10 @@ function Dashboard() {
           control={
             <Radio
               checked={takeStatus === "incomplete"}
-              onChange={() => setTakeStatus("incomplete")}
+              onChange={() => {
+                setTakeStatus("incomplete");
+                completeStatus(false);
+              }}
               color="primary"
               name="incomplete"
             />

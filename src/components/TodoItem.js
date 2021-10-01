@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import DeleteIcon from "@material-ui/icons/Delete";
 import { DELETE_TODO_ITEM, UPDATE_TODO_ITEM } from "../graphql/mutations";
 import { useMutation } from "@apollo/client";
-import { TODOS_QUERY } from "../graphql/queries";
+import { TODOS_QUERY, CLIENT_SIDE_FILTERED_TODOS } from "../graphql/queries";
 import { TextField } from "@material-ui/core";
 import CheckIcon from "@material-ui/icons/Check";
 import CloseIcon from "@material-ui/icons/Close";
@@ -14,33 +14,26 @@ function TodoItem(props) {
   const [deleteTodo] = useMutation(DELETE_TODO_ITEM, {
     update(cache, { data: { deleteTodo } }) {
       console.log("deletetodo: ", deleteTodo);
-      // const { todos } = cache.readQuery({
-      //   query: TODOS_QUERY,
-      //   variables: {
-      //     takeStatus: deleteTodo.isComplete ? "complete" : "incomplete",
-      //   },
-      // });
-      // console.log("todos from todoItem delete: ", todos);
+      const { todos } = cache.readQuery({
+        query: CLIENT_SIDE_FILTERED_TODOS,
+      });
 
-      // let updatedListTodos = todos.todoItems.filter((elem) => {
-      //   if (elem.id !== deleteTodo.id) {
-      //     return elem;
-      //   }
-      // });
-      // console.log("updatedList: ", updatedListTodos);
+      let updatedListTodos = todos.todoItems.filter((elem) => {
+        if (elem.id !== deleteTodo.id) {
+          return elem;
+        }
+      });
 
-      // cache.writeQuery({
-      //   query: TODOS_QUERY,
-      //   variables: {
-      //     takeStatus: deleteTodo.isComplete ? "complete" : "incomplete",
-      //   },
-      //   data: {
-      //     todos: {
-      //       todoItems: updatedListTodos,
-      //       count: updatedListTodos.length,
-      //     },
-      //   },
-      // });
+      cache.writeQuery({
+        query: CLIENT_SIDE_FILTERED_TODOS,
+
+        data: {
+          todos: {
+            todoItems: updatedListTodos,
+            count: updatedListTodos.length,
+          },
+        },
+      });
     },
   });
 
