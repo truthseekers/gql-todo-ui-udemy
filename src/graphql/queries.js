@@ -22,6 +22,28 @@ const TODOS_QUERY = gql`
   }
 `;
 
+const CLIENT_SIDE_FILTERED_TODOS = gql`
+  query Todos {
+    filteredTodos @client {
+      todoItems {
+        id
+        name
+        isComplete
+      }
+      count
+    }
+
+    todos {
+      todoItems {
+        id
+        name
+        isComplete
+      }
+      count
+    }
+  }
+`;
+
 const ME = gql`
   query {
     me {
@@ -32,4 +54,4 @@ const ME = gql`
   }
 `;
 
-export { GET_USERS_QUERY, TODOS_QUERY, ME };
+export { GET_USERS_QUERY, TODOS_QUERY, ME, CLIENT_SIDE_FILTERED_TODOS };
