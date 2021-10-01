@@ -33,4 +33,20 @@ const useButtonStyles = makeStyles((theme) => ({
   },
 }));
 
-export { useLoginStyles, useHeaderStyles, useButtonStyles };
+const useUnauthenticatedStyles = makeStyles((theme) => ({
+  root: {
+    "& > *": {
+      margin: theme.spacing(1),
+    },
+  },
+  heroContent: {
+    padding: theme.spacing(8, 0, 6),
+  },
+}));
+
+export {
+  useLoginStyles,
+  useHeaderStyles,
+  useButtonStyles,
+  useUnauthenticatedStyles,
+};

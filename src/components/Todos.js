@@ -40,6 +40,10 @@ function Todos(props) {
 
   return (
     <div>
+      <h2>
+        {props.takeStatus === "incomplete" ? "Incomplete " : "Complete "} Todos:{" "}
+        {data.filteredTodos.count}
+      </h2>
       <ul>{todoRows}</ul>
       <Pagination
         todosPerPage={5}
